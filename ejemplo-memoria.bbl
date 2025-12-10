@@ -1,0 +1,116 @@
+\begin{thebibliography}{10}
+
+\bibitem{barber2000trading}
+Brad~M. Barber and Terrance Odean.
+\newblock Trading is hazardous to your wealth: The common stock investment
+  performance of individual investors.
+\newblock {\em The Journal of Finance}, 55(2):773--806, 2000.
+
+\bibitem{yfinance}
+Ran Aroussi.
+\newblock yfinance: Yahoo! finance market data downloader, 2024.
+
+\bibitem{graham_investor}
+Benjamin Graham.
+\newblock {\em The Intelligent Investor: The Definitive Book on Value
+  Investing}.
+\newblock HarperCollins, 2003.
+\newblock Referencia clave en Value Investing.
+
+\bibitem{deterding_gamification}
+Sebastian Deterding et~al.
+\newblock From game design elements to gamefulness: defining gamification.
+\newblock In {\em Proceedings of the 15th international academic MindTrek
+  conference}. ACM, 2011.
+\newblock Definición académica de gamificación.
+
+\bibitem{clean_code}
+Robert~C. Martin.
+\newblock {\em Clean Code: A Handbook of Agile Software Craftsmanship}.
+\newblock Prentice Hall, 2008.
+
+\bibitem{krug_usability}
+Steve Krug.
+\newblock {\em Don't Make Me Think, Revisited: A Common Sense Approach to Web
+  Usability}.
+\newblock New Riders, 2014.
+\newblock Manual de referencia en usabilidad web.
+
+\bibitem{github_actions}
+GitHub.
+\newblock {\em GitHub Actions Documentation}, 2024.
+\newblock Continuous Integration and Delivery (CI/CD) Platform.
+
+\bibitem{pytest}
+Holger Krekel et~al.
+\newblock {\em pytest: helps you write better programs}, 2024.
+\newblock Testing framework.
+
+\bibitem{flask}
+Pallets Projects.
+\newblock {\em Flask Documentation (3.0.x)}, 2024.
+\newblock Web Framework for Python.
+
+\bibitem{investopedia}
+Dotdash Meredith.
+\newblock Investopedia stock simulator, 2024.
+\newblock Plataforma de educación financiera.
+
+\bibitem{bolsavirtual}
+Fusión~Media Ltd.
+\newblock La bolsa virtual, 2024.
+\newblock Simulador de bolsa en español.
+
+\bibitem{python}
+Python~Software Foundation.
+\newblock Python language reference, version 3.12, 2024.
+\newblock Accedido: 2024-12-01.
+
+\bibitem{pandas}
+The pandas~development team.
+\newblock pandas: powerful python data analysis toolkit, 2024.
+\newblock Librería de análisis de datos.
+
+\bibitem{ruff}
+Charlie Marsh.
+\newblock Ruff: An extremely fast python linter, 2024.
+\newblock Herramienta de análisis estático.
+
+\bibitem{render}
+Render.
+\newblock Render cloud hosting, 2024.
+\newblock Cloud Application Hosting Platform.
+
+\bibitem{pep8}
+Guido Van~Rossum, Barry Warsaw, and Nick Coghlan.
+\newblock Pep 8 -- style guide for python code, 2001.
+\newblock Estándar de estilo de código Python.
+
+\bibitem{progit}
+Scott Chacon and Ben Straub.
+\newblock {\em Pro Git}.
+\newblock Apress, 2014.
+\newblock Sistema de control de versiones.
+
+\bibitem{jinja2}
+Pallets Projects.
+\newblock {\em Jinja2 Documentation (3.1.x)}, 2024.
+\newblock Motor de plantillas para Python.
+
+\bibitem{chartjs}
+Chart.js Contributors.
+\newblock {\em Chart.js Documentation (4.4.x)}, 2024.
+\newblock Librería de gráficos para JavaScript.
+
+\bibitem{fowler_mvc}
+Martin Fowler.
+\newblock {\em Patterns of Enterprise Application Architecture}.
+\newblock Addison-Wesley, 2002.
+\newblock Referencia sobre el patrón MVC.
+
+\bibitem{postgresql}
+The PostgreSQL Global~Development Group.
+\newblock {\em PostgreSQL 16 Documentation}, 2024.
+\newblock Sistema de gestión de bases de datos relacional.
+
+\end{thebibliography}

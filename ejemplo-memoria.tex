@@ -1,0 +1,137 @@
+\documentclass[twoside,spanish,a4paper,12pt]{tfg}
+
+% Editar la titulación
+\titulacion{Grado en Ingeniería Multimedia}
+
+% Editar el título
+\title{TFG Web App: Plataforma de Simulación de Inversión en Bolsa basada en Análisis Fundamental}
+
+% Si es una alumna se debe usar
+% \authorlabel{Autora}
+\authorlabel{Autor}
+% Editar el nombre
+\author{Javier Sanchis Lahiguera}
+
+
+% Si hay varios tutores:
+% \tutorlabel{Tutores}
+% \tutor{Nombre del tutor 1 \\[2mm] Nombre del turor2}
+% Si el tutor es masculino:
+% \tutorlabel{Tutor}
+\tutorlabel{Tutor}
+% Editar
+\tutor{Santiago Carlos Ezpeleta Plaza }
+
+% Editar: Poner mes y año de la convocatoria de lectura del TFM
+\convocatoria{Enero 2025}
+
+% más espacio entre párrafos
+\setlength{\parskip}{1em}   % prueba 0.5em–1em según veas
+\setlength{\parindent}{1.5em} % si quieres mantener sangría
+
+
+\begin{document}
+
+% NO QUITAR ESTOS ELEMENTOS
+\portada
+\cleardoublepage
+\contraportada
+\cleardoublepage
+\declaracion
+\cleardoublepage
+
+
+% Editar: Resumen en Español (obligatorio)
+\begin{resumen}
+\setlength{\parskip}{1em} % <--- ESTA ES LA LÍNEA MÁGICA
+La falta de educación financiera es una barrera significativa para muchos inversores particulares, quienes a menudo carecen de herramientas prácticas para experimentar con estrategias de inversión a largo plazo sin arriesgar capital real. Este TFG presenta el diseño y desarrollo de una aplicación web dedicada al análisis fundamental de empresas y la simulación de carteras de inversión.
+
+El sistema, desarrollado en Python con el \textit{framework} Flask, integra datos bursátiles reales a través de la API de Yahoo Finance y ofrece un novedoso "Modo Carrera". Este modo gamifica la experiencia de inversión, permitiendo al usuario gestionar su patrimonio a través de diferentes escenarios históricos y eventos macroeconómicos simulados.
+
+Desde una perspectiva técnica, el proyecto destaca por la implementación de un ciclo de vida de desarrollo de software moderno, integrando pruebas automatizadas (\textit{testing}) y despliegue continuo (CI/CD) mediante GitHub Actions y Render. Los resultados demuestran la viabilidad de crear herramientas financieras educativas robustas y escalables con costes de infraestructura mínimos.
+\end{resumen}
+\cleardoublepage
+
+% Editar: Resumen en Inglés
+\begin{abstract}
+\setlength{\parskip}{1em} % <--- AÑADIR AQUÍ TAMBIÉN
+The lack of financial literacy acts as a significant barrier for many retail investors, who often lack practical tools to experiment with long-term investment strategies without risking real capital. This TFG presents the design and development of a web application dedicated to fundamental company analysis and investment portfolio simulation.
+
+The system, developed in Python using the Flask framework, integrates real stock market data via the Yahoo Finance API and features a novel "Career Mode." This mode gamifies the investment experience, allowing users to manage their wealth across various historical scenarios and simulated macroeconomic events.
+
+From a technical perspective, the project stands out for its implementation of a modern software development lifecycle, integrating automated testing and continuous deployment (CI/CD) using GitHub Actions and Render. The results demonstrate the feasibility of creating robust and scalable educational financial tools with minimal infrastructure costs.
+\end{abstract}
+\cleardoublepage
+
+% Editar: Resumen en Valenciano
+\begin{resum}
+\setlength{\parskip}{1em} % <--- Y AQUÍ
+La manca d'educació financera és una barrera significativa per a molts inversors particulars, els quals sovint manquen d'eines pràctiques per a experimentar amb estratègies d'inversió a llarg termini sense arriscar capital real. Aquest TFG presenta el disseny i desenvolupament d'una aplicació web dedicada a l'anàlisi fonamental d'empreses i la simulació de carteres d'inversió.
+
+El sistema, desenvolupat en Python amb el \textit{framework} Flask, integra dades borsàries reals a través de l'API de Yahoo Finance i ofereix un nou "Mode Carrera". Aquest mode ludifica l'experiència d'inversió, permetent a l'usuari gestionar el seu patrimoni a través de diferents escenaris històrics i esdeveniments macroeconòmics simulats.
+
+Des d'una perspectiva tècnica, el projecte destaca per la implementació d'un cicle de vida de desenvolupament de programari modern, integrant proves automatitzades (\textit{testing}) i desplegament continu (CI/CD) mitjançant GitHub Actions i Render. Els resultats demostren la viabilitat de crear eines financeres educatives robustes i escalables amb costos d'infraestructura mínims.
+\end{resum}
+\cleardoublepage
+
+
+% Editar: Agradecimientos (opcional)
+\begin{agradecimientos}
+  En primer lugar quiero agradecer a todos aquellos que me han apoyado durante todos estos años.
+
+  En segundo lugar...
+\end{agradecimientos}
+\cleardoublepage
+
+\tableofcontents
+
+\pagestyle{tfg}
+\justify
+
+% Las figuras se buscan en el directorio figs
+
+% Cada capítulo está en su propio fichero tex. Ver el directorio tex.
+
+% --- ESTRUCTURA NORMATIVA TFG 2023 ---
+
+\chapter{Introducción}
+\input{tex/introduccion.tex}
+
+\chapter{Motivación y Objetivos}
+\input{tex/motivacion_objetivos.tex}
+
+\chapter{Estado del Arte}
+\input{tex/estado_arte.tex}
+
+\chapter{Planificación y especificación}
+\input{tex/planificacion.tex}
+
+\chapter{Desarrollo del Proyecto}
+\input{tex/desarrollo.tex}
+
+\chapter{Pruebas y Resultados}
+\input{tex/pruebas.tex}
+
+\chapter{Conclusiones y Trabajo Futuro}
+\input{tex/conclusiones.tex}
+
+% -------------------------------------
+
+\pagestyle{appendix}
+
+\appendix
+\input{tex/apendice.tex}
+
+\addcontentsline{toc}{chapter}{Bibliografía}
+\bibliographystyle{unsrt}
+\bibliography{bib/bibliografia}
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

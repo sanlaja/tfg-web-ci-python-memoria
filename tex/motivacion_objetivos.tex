@@ -1,0 +1,29 @@
+\section{Motivación}
+
+La inversión en mercados financieros requiere no solo conocimientos teóricos, sino también experiencia práctica para gestionar la incertidumbre y la psicología del inversor. Actualmente, muchas herramientas de simulación bursátil se centran excesivamente en el \textit{trading} intradía o especulativo, dejando de lado estrategias de inversión a largo plazo como el \textit{Value Investing} \cite{graham_investor} o el \textit{Dollar Cost Averaging} (DCA).
+
+La motivación principal de este proyecto surge de la necesidad de proporcionar una herramienta tecnológica que cubra este vacío. Se busca desarrollar una plataforma que no solo permita consultar datos, sino que "gamifique" la experiencia de inversión a largo plazo mediante un "Modo Carrera". Este enfoque de gamificación \cite{deterding_gamification} expondrá al usuario a eventos macroeconómicos simulados (crisis de deuda, inflación, burbujas sectoriales), obligándole a tomar decisiones estratégicas en un entorno controlado pero basado en datos reales.
+
+Desde el punto de vista de la Ingeniería Multimedia, este proyecto está motivado por el interés en aplicar tanto principios de diseño de experiencias interactivas como buenas prácticas de desarrollo web moderno \cite{clean_code}. No basta con que la aplicación “funcione”; se busca ofrecer una interfaz clara, usable y visualmente coherente para el usuario \cite{krug_usability}, al tiempo que se implementa un ciclo de vida de desarrollo profesional, integrando pruebas automatizadas y despliegue continuo (CI/CD) que garanticen la robustez, el rendimiento y la mantenibilidad del sistema.
+
+\section{Objetivos}
+
+A continuación se detalla el objetivo principal del proyecto y se desglosa en subobjetivos específicos y verificables.
+
+\subsection{Objetivo Principal}
+
+El objetivo principal de este TFG es el diseño, desarrollo e implementación de una aplicación web robusta para el análisis fundamental de empresas y la simulación de carteras de inversión, integrando datos de mercado reales y mecanismos de validación automática de código.
+
+\subsection{Objetivos Específicos}
+
+Para alcanzar la meta principal, se han definido los siguientes subobjetivos:
+
+\begin{itemize}
+    \item \textbf{Integración y automatización de datos financieros:} Desarrollar módulos capaces de extraer, normalizar y procesar datos históricos de precios y dividendos provenientes de APIs externas (Yahoo Finance \cite{yfinance}), gestionando la ausencia de datos o inconsistencias temporales.
+    
+    \item \textbf{Desarrollo de un motor de simulación ("Modo Carrera"):} Implementar la lógica de negocio necesaria para simular escenarios de inversión a largo plazo, incluyendo la generación aleatoria de eventos macroeconómicos (shocks de mercado, noticias sectoriales) y el cálculo de métricas de rendimiento (CAGR, \textit{drawdown}, volatilidad).
+    
+    \item \textbf{Implementación de Calidad de Software (QA):} Configurar un entorno de Integración Continua (CI) utilizando GitHub Actions \cite{github_actions} que ejecute automáticamente baterías de pruebas unitarias (con \texttt{pytest} \cite{pytest}) y análisis estático de código (linter) en cada modificación del repositorio.
+    
+    \item \textbf{Diseño de Interfaz de Usuario (UI):} Construir una interfaz web intuitiva basada en el \textit{framework} Flask \cite{flask} que permita al usuario interactuar con las herramientas de análisis y visualizar la evolución de su patrimonio simulado mediante gráficos dinámicos.
+\end{itemize}

@@ -1,0 +1,51 @@
+\chapter{Manual Técnico y Despliegue}
+
+\section{Estructura del Proyecto}
+El código fuente de la aplicación se organiza siguiendo el patrón de diseño de Flask \cite{flask}. A continuación se muestra la estructura de directorios principal y la función de cada módulo:
+
+\begin{verbatim}
+/tfg-web-ci-python
+|-- .github/            # Flujos de CI/CD (GitHub Actions)
+|-- app/
+|   |-- data/           # Datos estáticos (JSON)
+|   |-- static/         # CSS, JS e imágenes
+|   |-- templates/      # Plantillas HTML (Jinja2)
+|   |-- __init__.py     # Factoría de la aplicación
+|   |-- career.py       # Lógica del "Modo Carrera"
+|   `-- routes.py       # Controlador (Rutas)
+|-- tests/              # Tests unitarios (pytest)
+|-- requirements.txt    # Dependencias
+`-- run.py              # Entry point
+\end{verbatim}
+
+\section{Instalación Local}
+Para ejecutar el entorno de desarrollo se requieren Python 3.11+ \cite{python} y Git \cite{progit}.
+
+\begin{enumerate}
+    \item Clonar el repositorio:
+    \begin{verbatim}
+    git clone https://github.com/sanlaja/tfg-web-ci-python.git
+    \end{verbatim}
+    
+    \item Crear entorno virtual e instalar dependencias:
+    \begin{verbatim}
+    python -m venv .venv
+    source .venv/bin/activate  # Windows: .venv\Scripts\activate
+    pip install -r requirements.txt
+    \end{verbatim}
+    
+    \item Ejecutar la aplicación:
+    \begin{verbatim}
+    python run.py
+    \end{verbatim}
+\end{enumerate}
+
+Si la ejecución es correcta, la aplicación estará disponible localmente en:
+\begin{center}
+\texttt{http://localhost:5000}
+\end{center}
+
+Para acceder a la versión de producción desplegada en la nube (Render \cite{render}), se puede visitar:
+\begin{center}
+\texttt{https://tfg-web-ci-python.onrender.com}
+\end{center}

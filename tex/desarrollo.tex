@@ -1,0 +1,126 @@
+\section{Análisis del Sistema}
+
+El análisis se centra en comprender la interacción entre el usuario y el sistema para cumplir con los requisitos establecidos. Al tratarse de una aplicación de acceso libre sin persistencia de usuarios en base de datos, el modelo de interacción se simplifica, priorizando la inmediatez de uso.
+
+\subsection{Actores del Sistema}
+Se identifica un único actor principal:
+\begin{itemize}
+    \item \textbf{Usuario Inversor:} Persona interesada en practicar estrategias de inversión o consultar datos fundamentales. No requiere privilegios administrativos ni registro previo.
+\end{itemize}
+
+\subsection{Casos de Uso}
+Los principales casos de uso identificados se describen a continuación:
+
+\begin{itemize}
+    \item \textbf{CU-01 Consultar Empresa:} El usuario introduce un \textit{ticker} (ej. AAPL) y el sistema devuelve su cotización actual, datos fundamentales y gráficos históricos.
+    \item \textbf{CU-02 Iniciar Simulación (Modo Carrera):} El usuario configura una nueva partida definiendo capital inicial, dificultad y horizonte temporal.
+    \item \textbf{CU-03 Avanzar Turno:} Dentro de la simulación, el usuario decide qué activos comprar o vender y solicita avanzar al siguiente periodo. El sistema calcula los rendimientos y genera eventos aleatorios.
+    \item \textbf{CU-04 Comparar con Benchmark:} El sistema superpone la rentabilidad de la cartera del usuario con la del índice S\&P 500.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/casos_uso.png}
+    \caption{Diagrama de Casos de Uso del sistema.}
+    \label{fig:casos_uso}
+\end{figure}
+
+\section{Diseño del Sistema}
+
+Para satisfacer los requisitos funcionales y no funcionales, se ha optado por una arquitectura web basada en el patrón **Modelo-Vista-Controlador (MVC)** \cite{fowler_mvc}, adaptada al \textit{microframework} Flask.
+
+\subsection{Arquitectura de Software}
+La aplicación se estructura en capas lógicas claramente diferenciadas para facilitar el mantenimiento y la escalabilidad:
+
+\begin{itemize}
+    \item \textbf{Capa de Presentación (Vista):} Responsable de la interfaz de usuario. Implementada mediante plantillas HTML5 renderizadas con \textbf{Jinja2} \cite{jinja2}, estilos CSS3 personalizados (diseño \textit{responsive}) y gráficos interactivos generados con la librería \textbf{Chart.js} \cite{chartjs}.
+    
+    \item \textbf{Capa de Control (Controlador):} Gestiona la lógica de la aplicación y el enrutamiento HTTP. Se ha implementado en Python utilizando \textbf{Flask Blueprints} \cite{flask} para modularizar el código:
+    \begin{itemize}
+        \item \texttt{routes.py}: Maneja las rutas generales y la consulta de datos públicos.
+        \item \texttt{career.py}: Encapsula toda la lógica compleja del simulador ("Modo Carrera"), incluyendo la máquina de estados de la simulación y el generador de eventos.
+    \end{itemize}
+    
+    \item \textbf{Capa de Datos y Servicios (Modelo):} 
+    \begin{itemize}
+        \item \textbf{Proveedor de Datos:} Integración con la API de \textbf{Yahoo Finance} (vía librería \texttt{yfinance}) para la obtención de series temporales en tiempo real.
+        \item \textbf{Almacenamiento:} Debido a la naturaleza anónima de la aplicación, la persistencia es efímera o basada en archivos JSON estáticos (\texttt{empresas.json}) para catálogos, delegando el estado de la sesión al navegador del cliente o memoria temporal.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/arquitectura.png}
+    \caption{Arquitectura de alto nivel de la aplicación.}
+    \label{fig:arquitectura}
+\end{figure}
+
+\subsection{Diseño de la Interfaz (UI/UX)}
+El diseño visual prioriza la claridad de los datos financieros. Se ha implementado un sistema de \textit{grids} CSS y \textit{Media Queries} para asegurar que las tablas de datos y los gráficos se adapten fluidamente a pantallas móviles, cumpliendo el requisito RNF-03. Los gráficos de Chart.js se han configurado para ser reactivos al redimensionamiento de la ventana.
+
+\section{Implementación}
+
+La implementación del sistema se ha llevado a cabo siguiendo las especificaciones de diseño, priorizando la modularidad y el uso de librerías estándar de la industria. A continuación, se detallan los componentes más relevantes del desarrollo.
+
+\subsection{Motor de Simulación Financiera}
+El núcleo de la aplicación reside en el módulo \texttt{career.py}, encargado de gestionar la lógica del "Modo Carrera". Este módulo implementa una máquina de estados que procesa los turnos de simulación.
+
+Para garantizar la consistencia de los datos históricos, se ha implementado una función robusta de extracción de datos que gestiona la conexión con la API de Yahoo Finance. El siguiente fragmento muestra cómo se procesan y normalizan los precios ajustados para evitar errores en el cálculo de rentabilidades a largo plazo:
+
+\begin{lstlisting}[language=Python, caption=Extracto de la función de normalización de precios en career.py]
+def _build_normalized_series_map(tickers, start, end):
+    series_map = {}
+    # Separamos activos normales de la liquidez (CASH)
+    non_cash = [t for t in tickers if not _is_cash(t)]
+    
+    for ticker in non_cash:
+        # Descarga y normalizacion base 100
+        data = _fetch_adj_close(ticker, start, end)
+        if data:
+            series_map[ticker] = _normalize_base100(data)
+            
+    return series_map
+\end{lstlisting}
+
+El sistema normaliza todas las series temporales a una "Base 100" al inicio del periodo de inversión, lo que facilita la comparación visual entre activos de precios muy dispares (por ejemplo, comparar una acción de 150\$ con una de 2.000\$).
+
+\subsection{Gestión de Eventos Aleatorios}
+Uno de los requisitos funcionales clave (RF-04) es la generación de eventos que alteren el mercado. Se ha implementado un sistema de "baraja de cartas" ponderada según la dificultad elegida por el usuario.
+
+El algoritmo decide en cada turno si ocurre un evento (positivo o negativo) basándose en probabilidades predefinidas. La estructura de datos para un evento típico se define en un diccionario extensible:
+
+\begin{lstlisting}[language=Python, caption=Definición de un evento macroeconómico negativo]
+{
+    "id": "macro_inflation_shock",
+    "name": "Shock inflacionario inesperado",
+    "scope": "portfolio",  # Afecta a toda la cartera
+    "impact_pct": -0.085,  # Impacto del -8.5%
+    "remaining_turns": 3,  # Duracion del efecto
+    "difficulty_label": "hard"
+}
+\end{lstlisting}
+
+\subsection{Controlador y Rutas (API)}
+El archivo \texttt{routes.py} actúa como el controlador principal, exponiendo los puntos de entrada (\textit{endpoints}) de la aplicación. Se ha utilizado el patrón \textit{Blueprint} de Flask para organizar las rutas.
+
+Destaca la implementación del \textit{endpoint} de análisis, que realiza validaciones de entrada estrictas antes de procesar cualquier simulación, asegurando que parámetros como el "horizonte temporal" o el "aporte mensual" (DCA) sean coherentes:
+
+\begin{lstlisting}[language=Python, caption=Validación de parámetros en el controlador]
+@bp.post("/analisis")
+def crear_analisis():
+    datos_brutos = request.get_json(silent=True) or {}
+    # Normalizacion y saneamiento de entrada
+    datos = _normalizar_payload(datos_brutos)
+    # Validacion de reglas de negocio
+    errores = _validar_payload(datos)
+    
+    if errores:
+        return jsonify({"valido": False, "errores": errores}), 400
+        
+    return _registrar_analisis(datos)
+\end{lstlisting}
+
+\subsection{Interfaz de Usuario (Frontend)}
+La interfaz se ha construido utilizando HTML5 semántico y CSS3 moderno. Para la visualización de datos, se ha integrado la librería \textbf{Chart.js} \cite{chartjs}, que renderiza los gráficos financieros en el lado del cliente (navegador) a partir de los datos JSON servidos por el backend.
+
+Para cumplir con el requisito de diseño responsivo (RNF-03), se han utilizado \textit{Media Queries} y unidades relativas (como \texttt{clamp()}), permitiendo que la navegación y las tablas de datos se adapten fluidamente a dispositivos móviles sin perder legibilidad.

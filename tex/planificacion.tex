@@ -1,0 +1,83 @@
+% Contenidos del capítulo
+% Las secciones presentadas son orientativas y no representan
+% necesariamente la organización que debe tener este capítulo.
+
+\section{Identificación de Requisitos}
+
+En este apartado se recogen los requisitos principales que debe cumplir la aplicación desarrollada. Se distinguen, por un lado, los requisitos funcionales asociados al comportamiento observable por el usuario y, por otro, los requisitos no funcionales relacionados con la calidad, el despliegue y la experiencia de uso.
+
+\subsection{Requisitos Funcionales}
+
+El sistema deberá permitir, como mínimo, las siguientes funcionalidades:
+
+\begin{itemize}
+    \item \textbf{RF-01 Gestión de sesiones:} El sistema gestionará el estado del usuario mediante sesiones anónimas (basadas en cookies y un \textit{session\_id}) para el \textit{Modo Carrera}, permitiendo seguir el progreso de cada partida sin necesidad de un registro persistente con usuario y contraseña.
+
+    \item \textbf{RF-02 Visualización de rentabilidad:} La aplicación generará gráficos dinámicos que comparen la rentabilidad porcentual de los activos individuales y de la cartera total frente a un \textit{benchmark} de referencia (por ejemplo, el S\&P 500), de forma que el usuario pueda interpretar fácilmente la evolución de su estrategia.
+
+    \item \textbf{RF-03 Simulación (\textit{Modo Carrera}):} El sistema permitirá al usuario gestionar una cartera virtual a lo largo de periodos históricos, tomando decisiones de compra, venta o rebalanceo en cada turno. Cada decisión afectará a la evolución futura del patrimonio simulado.
+
+    \item \textbf{RF-04 Eventos aleatorios:} Se generarán eventos macroeconómicos (noticias, crisis, inflación, cambios de tipos, etc.) que impacten en la valoración de la cartera, con el objetivo de evaluar cómo reacciona el inversor ante cambios de ciclo y situaciones de estrés de mercado.
+\end{itemize}
+
+\subsection{Requisitos No Funcionales}
+
+Además de las funcionalidades anteriores, la aplicación debe cumplir una serie de requisitos no funcionales:
+
+\begin{itemize}
+    \item \textbf{RNF-01 Disponibilidad y despliegue:} La aplicación estará desplegada en la nube mediante la plataforma \textbf{Render} \cite{render}, utilizando el nivel gratuito. Debido a las limitaciones de este plan, el servicio puede entrar en suspensión tras un periodo de inactividad, requiriendo un breve tiempo de arranque (\textit{cold start}) en la siguiente petición.
+
+    \item \textbf{RNF-02 Calidad del código:} El desarrollo seguirá el estándar de estilo \textbf{PEP~8} \cite{pep8}, verificado mediante la herramienta \texttt{ruff} \cite{ruff}, y contará con una estrategia de pruebas automatizadas implementada con \texttt{pytest} \cite{pytest}, para asegurar la fiabilidad de la lógica financiera y reducir la aparición de regresiones.
+
+    \item \textbf{RNF-03 Usabilidad y diseño \textit{responsive}:} La interfaz web debe ser adaptable (\textit{responsive}), garantizando una visualización correcta tanto en monitores de escritorio como en dispositivos móviles, y manteniendo una organización clara de los elementos de análisis y simulación.
+\end{itemize}
+
+\section{Metodología de Trabajo}
+
+A lo largo del desarrollo se ha seguido una metodología de trabajo ágil e incremental, organizando el proyecto en pequeños entregables que se iban validando de forma continua. El ciclo de desarrollo se ha apoyado en las siguientes prácticas:
+
+\begin{itemize}
+    \item \textbf{Control de versiones:} Se ha utilizado \textbf{Git} \cite{progit} como sistema de control de versiones, trabajando con ramas específicas (\textit{feature branches}) para cada nueva funcionalidad o corrección. Esto ha facilitado el aislamiento de cambios y la integración progresiva en la rama principal del proyecto.
+
+    \item \textbf{Diario de desarrollo:} Se ha mantenido un diario de desarrollo donde se registran los avances, los problemas encontrados y las decisiones técnicas adoptadas. Este diario ha servido como herramienta de autoevaluación y también como apoyo para la planificación de los siguientes pasos.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    % Corregido el nombre a 'diario.png' para coincidir con la subida anterior
+    \includegraphics[width=0.8\textwidth]{figs/diario.png}
+    \caption{Ejemplo del diario de desarrollo utilizado durante el proyecto.}
+    \label{fig:diario}
+\end{figure}
+
+\section{Planificación Temporal}
+
+El desarrollo del proyecto se ha estructurado en cuatro hitos principales:
+
+\begin{enumerate}
+    \item \textbf{Investigación y configuración inicial:} Búsqueda y evaluación de posibles fuentes de datos financieros, selección de la API (Yahoo Finance \cite{yfinance}) y puesta en marcha del entorno de desarrollo, incluyendo la configuración básica de CI/CD \cite{github_actions}.
+
+    \item \textbf{Desarrollo del \textit{backend}:} Implementación de la lógica financiera (descarga y procesado de datos, cálculo de métricas) y del motor de simulación del \textit{Modo Carrera} en Python \cite{python}, así como la definición de los endpoints de la API interna.
+
+    \item \textbf{Desarrollo del \textit{frontend}:} Diseño e implementación de las plantillas Jinja2 \cite{jinja2} y de los componentes visuales de la aplicación, incluyendo los gráficos interactivos con Chart.js \cite{chartjs} y las vistas de empresas, análisis y modo carrera.
+
+    \item \textbf{Despliegue y documentación:} Configuración del servicio en Render, pruebas finales en el entorno desplegado y elaboración de la memoria del TFG y del manual de usuario asociado a la \textit{TFG Web App}.
+\end{enumerate}
+
+\section{Estimación de Costes}
+
+Aunque se trata de un proyecto académico, es posible realizar una estimación aproximada de costes considerando el tiempo de desarrollo y los recursos materiales utilizados. La Tabla~\ref{tab:costes} recoge un presupuesto orientativo.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|r|}
+\hline
+\textbf{Concepto} & \textbf{Unidades} & \textbf{Coste unitario} & \textbf{Total} \\ \hline
+Ingeniero Junior & 300 horas & 20 €/h & 6.000 € \\ \hline
+Amortización portátil & 4 meses & 20 €/mes & 80 € \\ \hline
+Servidor Render & 4 meses & 0 € (Free Tier) & 0 € \\ \hline
+\textbf{TOTAL} & & & \textbf{6.080 €} \\ \hline
+\end{tabular}
+\caption{Presupuesto estimativo del proyecto.}
+\label{tab:costes}
+\end{table}

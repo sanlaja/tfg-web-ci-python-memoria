@@ -1,0 +1,37 @@
+% Contenidos del capítulo.
+% Las secciones presentadas son orientativas y no representan
+% necesariamente la organización que debe tener este capítulo.
+\section{Conclusiones}
+
+El desarrollo de este Trabajo de Fin de Grado ha permitido alcanzar satisfactoriamente el objetivo principal: el diseño e implementación de una plataforma web funcional para el análisis y simulación de inversiones financieras.
+
+Tras completar el ciclo de desarrollo, se extraen las siguientes conclusiones principales:
+
+\begin{itemize}
+    \item \textbf{Cumplimiento de Objetivos:} Se ha logrado automatizar la extracción de datos financieros reales y construir un "Modo Carrera" jugable que cumple con la función pedagógica planteada. La aplicación permite simular estrategias como el DCA en periodos históricos reales, ofreciendo un valor diferencial respecto a otros simuladores estáticos.
+    
+    \item \textbf{Robustez Técnica:} La integración de prácticas de Ingeniería de Software modernas, específicamente el pipeline de CI/CD con GitHub Actions \cite{github_actions} y el despliegue automático en Render \cite{render}, ha sido determinante. Esto ha permitido detectar errores de regresión de forma temprana y asegurar que la versión en producción siempre sea estable.
+    
+    \item \textbf{Viabilidad Económica:} La revisión presupuestaria confirma que el desarrollo de herramientas complejas es viable con costes de infraestructura nulos o muy reducidos gracias a las capas gratuitas de los proveedores Cloud actuales, lo que democratiza el acceso a la tecnología financiera.
+    
+    \item \textbf{Experiencia de Usuario:} Las pruebas funcionales han validado que la interfaz es capaz de presentar gran cantidad de datos (gráficos, tablas) de forma legible en dispositivos móviles, superando uno de los retos de diseño más habituales en aplicaciones financieras.
+\end{itemize}
+
+\section{Trabajo Futuro}
+
+A pesar de que el sistema es funcional y cumple los requisitos iniciales, el desarrollo ha abierto nuevas vías de mejora y expansión. Si se dispusiera de más tiempo y recursos, se proponen las siguientes líneas de trabajo futuro:
+
+\subsection{Mejoras Técnicas}
+\begin{itemize}
+    \item \textbf{Persistencia de Usuarios:} Implementar una base de datos relacional como PostgreSQL \cite{postgresql} para permitir el registro de usuarios, guardar historiales de partidas y crear un ranking global de jugadores.
+    \item \textbf{Ampliación de Mercados:} Integrar APIs adicionales para incluir criptomonedas, materias primas o mercados europeos, ya que actualmente la herramienta se centra en el mercado estadounidense (S\&P 500).
+\end{itemize}
+
+\subsection{Mejoras Funcionales}
+\begin{itemize}
+    \item \textbf{Inteligencia Artificial:} Desarrollar un módulo de IA que actúe como "asesor virtual", analizando la cartera del usuario y sugiriendo movimientos basados en patrones históricos o métricas de riesgo.
+    \item \textbf{Modo Multijugador:} Implementar competiciones en tiempo real donde varios usuarios gestionen carteras simultáneamente bajo las mismas condiciones de mercado.
+\end{itemize}
+
+\section{Conclusión Personal}
+La realización de este proyecto ha supuesto un reto integrador que ha permitido consolidar competencias adquiridas durante el grado, desde la programación \textit{backend} con Python \cite{python} hasta la gestión de proyectos ágiles. Más allá del resultado técnico, el proyecto ha servido para profundizar en la intersección entre la tecnología y las finanzas, un sector con gran proyección profesional.

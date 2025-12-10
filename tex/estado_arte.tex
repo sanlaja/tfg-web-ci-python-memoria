@@ -1,0 +1,43 @@
+% Contenidos del capítulo.
+% Las secciones presentadas son orientativas y no representan
+% necesariamente la organización que debe tener este capítulo.
+
+\section{Análisis de soluciones existentes}
+
+En el mercado actual existen numerosas herramientas de seguimiento de carteras y simulación bursátil. Sin embargo, muchas de ellas se centran en el \textit{trading} especulativo a corto plazo o bien carecen de un enfoque claramente pedagógico orientado a la inversión a largo plazo y a la adquisición de hábitos de inversión saludables.
+
+\subsection{Investopedia Simulator}
+
+Investopedia Simulator \cite{investopedia} es una de las herramientas más conocidas para la simulación bursátil. Permite operar con dinero virtual en tiempo casi real, utilizando órdenes de compra y venta similares a las de un bróker tradicional. No obstante, su enfoque es fundamentalmente transaccional: el usuario practica la ejecución de operaciones, pero no existe un modo estructurado que simule el paso de los años, la aparición de eventos macroeconómicos ni un hilo conductor que le obligue a reflexionar sobre decisiones de largo plazo.
+
+\subsection{Simuladores bancarios (p.\,ej., La Bolsa Virtual)}
+
+Distintas entidades financieras y plataformas nacionales ofrecen simuladores que replican la interfaz de su propio bróker, como es el caso de La Bolsa Virtual \cite{bolsavirtual} u otros simuladores ligados a cuentas demo. Estos productos suelen ser robustos en cuanto a datos de mercado, pero su componente pedagógico es limitado: en general no profundizan en métricas fundamentales (PER, deuda, crecimiento, etc.) ni guían al usuario en la construcción de una estrategia de inversión sostenida en el tiempo, sino que se centran en la compra–venta en función del precio.
+
+\subsection{Diferenciación de la propuesta}
+
+La aplicación desarrollada en este TFG (\textit{TFG Web App}) se diferencia de estas soluciones en varios aspectos. En primer lugar, integra un \textit{Modo Carrera} que simula el paso del tiempo y la aparición de eventos macroeconómicos predefinidos (crisis, periodos de bonanza, cambios de tipos de interés), de manera que el usuario debe ir adaptando su asignación de capital turno a turno. En segundo lugar, el foco está en la inversión a largo plazo y en el análisis fundamental de empresas, utilizando métricas básicas y estrategias como el \textit{Dollar Cost Averaging}, en lugar de fomentar la operativa especulativa de muy corto plazo. Finalmente, la interfaz y las mecánicas están diseñadas con un enfoque gamificado y didáctico, buscando que el usuario aprenda mientras experimenta con escenarios realistas pero sin riesgo.
+
+\section{Análisis tecnológico}
+
+Para el desarrollo de la aplicación se han evaluado distintas alternativas tecnológicas, seleccionando aquellas que mejor se adaptan a los requisitos del proyecto: simplicidad de despliegue, facilidad de mantenimiento y adecuación a un entorno de prototipado típico de un Trabajo de Fin de Grado.
+
+\subsection{Backend: Python y Flask}
+
+Se ha seleccionado \textbf{Python} \cite{python} como lenguaje principal por su amplio uso en el ámbito financiero y de ciencia de datos, así como por la disponibilidad de librerías maduras para el tratamiento de series temporales. En particular, el uso de \texttt{pandas} \cite{pandas} y \texttt{yfinance} \cite{yfinance} simplifica la descarga, limpieza y agregación de precios y dividendos históricos.
+
+Como \textit{framework} web se ha utilizado \textbf{Flask} \cite{flask}, por tratarse de un micro-\textit{framework} ligero y flexible que encaja bien con el tamaño y alcance del proyecto. Flask permite definir de forma sencilla las rutas de la aplicación, exponer endpoints para la obtención de datos en formato JSON y servir las plantillas HTML que conforman la interfaz de usuario.
+
+\subsection{Integración Continua (CI): GitHub Actions}
+
+Para asegurar un mínimo de calidad del software se ha configurado un flujo de \textbf{Integración Continua} mediante \textbf{GitHub Actions} \cite{github_actions}. En cada \textit{push} al repositorio se ejecutan automáticamente las pruebas unitarias definidas con \texttt{pytest} \cite{pytest} y herramientas de análisis estático como \texttt{ruff} \cite{ruff}. Este proceso permite detectar errores de forma temprana y reduce la probabilidad de introducir regresiones en la lógica de cálculo de carteras y métricas de rendimiento.
+
+\subsection{Despliegue y alojamiento (CD): Render}
+
+La puesta en producción de la aplicación se realiza en la plataforma en la nube \textbf{Render} \cite{render}, que ofrece un modelo de tipo PaaS (\textit{Platform as a Service}). Render se ha elegido principalmente por su integración directa con GitHub, porque ofrece una versión gratuita y por la sencillez de configuración: una vez definido el servicio, la plataforma detecta automáticamente los cambios en la rama correspondiente, construye la imagen de la aplicación y la despliega, implementando así un flujo básico de \textbf{Despliegue Continuo (CD)}.
+
+Frente a alternativas más complejas como AWS o Azure, Render resulta más apropiado para un proyecto académico, ya que minimiza las tareas de administración de infraestructura y proporciona de serie aspectos como el certificado SSL y el acceso mediante HTTPS.
+
+\subsection{Fuente de datos: Yahoo Finance}
+
+Como fuente principal de datos de mercado se utiliza la API (no oficial) de \textbf{Yahoo Finance}, accedida a través de la librería \texttt{yfinance} \cite{yfinance}. Esta opción se ha elegido por ser gratuita, ofrecer datos ajustados por dividendos y disponer de una cobertura razonablemente amplia de \textit{tickers} internacionales. Aunque existen alternativas profesionales más completas (Bloomberg, Refinitiv, etc.), su coste y complejidad las hacen poco viables en el contexto de un TFG. La elección de Yahoo Finance supone un compromiso adecuado entre disponibilidad de datos y simplicidad de integración para el alcance del proyecto.

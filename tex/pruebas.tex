@@ -1,0 +1,71 @@
+% Contenidos del capítulo.
+% Las secciones presentadas son orientativas y no representan
+% necesariamente la organización que debe tener este capítulo.
+\section{Diseño de Pruebas}
+
+Para garantizar la fiabilidad del sistema, se ha seguido una estrategia de pruebas mixta que combina la verificación automática del código (Caja Blanca) con la validación funcional de la interfaz de usuario (Caja Negra).
+
+\subsection{Pruebas Automáticas (QA)}
+El aseguramiento de la calidad se ha integrado en el ciclo de desarrollo mediante herramientas de integración continua.
+
+\subsubsection{Análisis Estático y Estilo}
+Se ha utilizado la herramienta \texttt{ruff} \cite{ruff} para auditar el cumplimiento del estándar PEP8 \cite{pep8} y detectar errores de sintaxis o patrones peligrosos antes de la ejecución. Esto garantiza un código base limpio y mantenible.
+
+\subsubsection{Pruebas Unitarias}
+Se ha implementado una batería de pruebas unitarias utilizando el \textit{framework} \textbf{pytest} \cite{pytest}. Estas pruebas verifican la lógica financiera crítica de forma aislada, asegurando que funciones como el cálculo del interés compuesto o la normalización de precios devuelvan resultados matemáticamente exactos.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/test_output.png}
+    \caption{Resultado de la ejecución exitosa de la batería de pruebas automatizadas.}
+    \label{fig:test_output}
+\end{figure}
+
+\subsubsection{Integración Continua (CI)}
+Cada vez que se realiza un envío de código (\textit{push}) al repositorio, un flujo de trabajo de \textbf{GitHub Actions} \cite{github_actions} levanta un entorno virtual, instala las dependencias y ejecuta la totalidad de las pruebas. Si alguna prueba falla, el despliegue se bloquea automáticamente, impidiendo que llegue código defectuoso a producción.
+
+\section{Pruebas Funcionales y Resultados}
+
+Se han realizado pruebas manuales para validar los requisitos funcionales definidos en el Capítulo 4, verificando la correcta integración entre el \textit{frontend}, el \textit{backend} y la API externa.
+
+\subsection{Validación de la Interfaz de Usuario}
+La interfaz ha demostrado ser intuitiva y robusta. A continuación se muestran los resultados finales de las pantallas principales:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/pantalla_graficos.png}
+    \caption{Visualización comparativa de rentabilidad (Cartera vs S\&P 500).}
+    \label{fig:ui_graficos}
+\end{figure}
+
+\subsection{Adaptabilidad (Responsive Design)}
+Se ha verificado el correcto funcionamiento en dispositivos móviles, cumpliendo el requisito RNF-03. Los menús de navegación colapsan correctamente y los gráficos de \texttt{Chart.js} \cite{chartjs} se redimensionan sin perder legibilidad.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figs/ui_mobile.png}
+    \caption{Adaptación de la interfaz a dispositivos móviles.}
+    \label{fig:ui_mobile}
+\end{figure}
+
+\section{Revisión Presupuestaria}
+
+Tras la finalización del desarrollo, se procede a comparar los costes estimados en la fase de planificación con los costes reales incurridos.
+
+Debido a la naturaleza académica del proyecto y al uso de un modelo de desarrollo ágil personal, no se han producido desviaciones significativas en los costes directos. El uso del plan gratuito de Render \cite{render} ha permitido mantener el coste de infraestructura en 0 \,€, tal y como se planificó.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Concepto} & \textbf{Estimado} & \textbf{Real} & \textbf{Desviación} \\ \hline
+Recursos Humanos & 6.000 \,€ & 6.000 \,€ & 0\% \\ \hline
+Hardware & 80 \,€ & 80 \,€ & 0\% \\ \hline
+Infraestructura Cloud & 0 \,€ & 0 \,€ & 0\% \\ \hline
+\textbf{TOTAL} & \textbf{6.080 \,€} & \textbf{6.080 \,€} & \textbf{0\%} \\ \hline
+\end{tabular}
+\caption{Comparativa de costes estimados vs. reales.}
+\label{tab:reversion_costes}
+\end{table}
+
+Se concluye que el proyecto ha sido económicamente viable y se ha ejecutado dentro de los márgenes presupuestarios establecidos.
