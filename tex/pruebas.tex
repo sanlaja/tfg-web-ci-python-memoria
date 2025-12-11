@@ -34,7 +34,7 @@ La interfaz ha demostrado ser intuitiva y robusta. A continuación se muestran l
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/pantalla_graficos.png}
-    \caption{Visualización comparativa de rentabilidad (Cartera vs S\&P 500).}
+    \caption{Visualización comparativa de rentabilidad de los activos en cartera.}
     \label{fig:ui_graficos}
 \end{figure}
 
@@ -47,6 +47,24 @@ Se ha verificado el correcto funcionamiento en dispositivos móviles, cumpliendo
     \caption{Adaptación de la interfaz a dispositivos móviles.}
     \label{fig:ui_mobile}
 \end{figure}
+
+
+\subsection{Pruebas de Rendimiento y Estabilidad en Producción}
+
+Durante la fase de despliegue y validación en el entorno de producción (Render, nivel gratuito), se detectó una incidencia crítica relacionada con la gestión de recursos. Al iniciar sesiones de simulación con horizontes temporales extensos (superiores a 10 años) o generar informes complejos, la aplicación sufría terminaciones abruptas del servicio.
+
+El análisis de los registros del servidor (\textit{logs}) reveló errores de tipo \texttt{SIGKILL} y \texttt{OOM (Out of Memory)}, indicando que el proceso de la aplicación excedía el límite estricto de 512 MB de memoria RAM impuesto por el contenedor. Adicionalmente, se observaron errores de \textit{timeout} (tiempo de espera agotado) en el servidor Gunicorn al realizar cálculos combinatorios intensivos para el informe final.
+
+Para solucionar estos problemas y garantizar la estabilidad del sistema, se implementaron las siguientes medidas correctivas en el módulo \texttt{career.py}:
+
+\begin{itemize}
+    \item \textbf{Optimización de memoria caché:} Se sustituyó el almacenamiento global de series históricas (que provocaba fugas de memoria) por el uso del decorador \texttt{@lru\_cache} de la librería estándar, limitando el almacenamiento en memoria a las últimas 32 consultas y forzando la liberación de recursos no utilizados.
+    \item \textbf{Reducción de precisión de datos:} Se implementó la conversión de los \textit{DataFrames} de \texttt{pandas} al tipo de dato \texttt{float32}, reduciendo el peso de las series temporales en memoria en aproximadamente un 50\% sin comprometer la precisión necesaria para la simulación.
+    \item \textbf{Acotación de la complejidad computacional:} Se ajustó el algoritmo de generación de carteras teóricas, reduciendo el límite de combinaciones a evaluar (de 30 a 15 candidatos) y forzando la recolección de basura (\texttt{gc.collect()}) tras procesos intensivos de descarga de datos.
+    \item \textbf{Ajuste de parámetros de dificultad:} Se recalibraron los rangos de años permitidos en la configuración de dificultad para alinearlos con la capacidad de procesamiento del plan gratuito.
+\end{itemize}
+
+Tras aplicar estas optimizaciones, se verificó mediante nuevas pruebas de estrés que el consumo de memoria se mantiene estable por debajo del umbral crítico, permitiendo la ejecución fluida del ciclo completo de simulación.
 
 \section{Revisión Presupuestaria}
 
